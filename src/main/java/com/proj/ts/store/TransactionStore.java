@@ -102,6 +102,9 @@ public class TransactionStore {
 
 	public void cleanLastMinuteData() {
 		perMinuteData.clear();
+		synchronized(lastMinuteAggregate) {
+			lastMinuteAggregate = new TransactionAggregate();
+		}
 	}
 
 }
