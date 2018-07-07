@@ -41,7 +41,6 @@ public class TransactionStore {
 	
 	public void add(TransactionDTO dto) {
 		transactionLog.add(dto);
-		LOG.error("difference timestamp dto :{} , calculated : {}", new Object[] {dto.getTimestamp(), Instant.now().minusSeconds(SECONDS_IN_MINUTE).toEpochMilli()});
 		if(dto.getTimestamp() < Instant.now().minusSeconds(SECONDS_IN_MINUTE).toEpochMilli()) {
 			throw new TransactionTimedOutException("transaction time is more than minute old");
 		}else if(Instant.now().isBefore(Instant.ofEpochMilli(dto.getTimestamp()))) {
